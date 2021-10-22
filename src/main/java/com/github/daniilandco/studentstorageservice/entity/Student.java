@@ -19,4 +19,7 @@ public class Student {
 
     @Column(name = "second_name")
     private String secondName;
+
+    @Column(name = "password")
+    private String password;
 }
