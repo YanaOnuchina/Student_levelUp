@@ -1,23 +1,27 @@
 package com.github.daniilandco.studentstorageservice.service;
 
 import com.github.daniilandco.studentstorageservice.entity.Student;
-import org.springframework.stereotype.Component;
+import com.github.daniilandco.studentstorageservice.repository.StudentRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
-@Component
+@Service
 public class StorageService {
-    private List<Student> storage = new ArrayList<Student>();
+    @Autowired
+    private StudentRepository studentRepository;
 
     public List<Student> getStorage() {
-        return storage;
+        return (List<Student>) studentRepository.findAll();
     }
 
-    public void add(Student student) throws Exception {
-        if (storage.stream().anyMatch(currentStudent -> currentStudent.getStudentId().equals(student.getStudentId()))) {
-            throw new Exception("Student id already exists");
+    public boolean add(Student student) {
+        if (studentRepository.existsByStudentId(student.getStudentId())) {
+            return false;
+        } else {
+            studentRepository.save(student);
+            return true;
         }
-        storage.add(student);
     }
 }

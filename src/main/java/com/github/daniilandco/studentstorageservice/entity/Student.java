@@ -1,10 +1,22 @@
 package com.github.daniilandco.studentstorageservice.entity;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Getter
+@Setter
+@Entity
 public class Student {
-    private String firstName;
-    private String secondName;
+    @Id
     private Long studentId;
+
+    @Column(name = "first_name")
+    private String firstName;
+
+    @Column(name = "second_name")
+    private String secondName;
 }

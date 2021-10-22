@@ -25,11 +25,10 @@ public class MainController {
 
     @PostMapping("/add")
     public String addNewStudent(@RequestBody Student student) {
-        try {
-            storageService.add(student);
+        if (storageService.add(student)) {
             return "New student has been added";
-        } catch (Exception e) {
-            return "Error: " + e.getMessage();
+        } else {
+            return "Error: student already exists";
         }
     }
 
